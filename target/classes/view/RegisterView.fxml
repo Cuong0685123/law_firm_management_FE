@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10.0"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.lawfirm.controller.RegisterController">
+
+    <Label text="Đăng ký" style="-fx-font-size: 18px;"/>
+    <TextField fx:id="usernameField" promptText="Tên đăng nhập"/>
+    <TextField fx:id="emailField" promptText="Email"/>
+    <PasswordField fx:id="passwordField" promptText="Mật khẩu"/>
+    <Button text="Đăng ký" onAction="#handleRegister"/>
+    <Hyperlink text="Đã có tài khoản? Đăng nhập" onAction="#goToLogin"/>
+    <Label fx:id="messageLabel" textFill="red"/>
+</VBox>

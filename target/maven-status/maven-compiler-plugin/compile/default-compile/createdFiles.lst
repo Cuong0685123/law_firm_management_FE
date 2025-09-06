@@ -1,0 +1,6 @@
+com\mycompany\lawfirm\frontend\App.class
+com\mycompany\lawfirm\controller\MainController.class
+com\mycompany\lawfirm\controller\RegisterController.class
+com\mycompany\lawfirm\model\Staff.class
+com\mycompany\lawfirm\service\AuthService.class
+com\mycompany\lawfirm\controller\LoginController.class

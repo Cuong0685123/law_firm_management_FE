@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="com.mycompany.lawfirm.controller.MainController">
+
+    <!-- Top Menu -->
+    <top>
+        <ToolBar>
+            <Label text="🏛️ Hệ Thống Quản Lý Công Ty Luật" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="welcomeLabel" text="Xin chào!" />
+            <Button text="Đăng xuất" onAction="#handleLogout"/>
+        </ToolBar>
+    </top>
+
+    <!-- Center content -->
+    <center>
+        <VBox spacing="20" alignment="CENTER">
+            <Label text="Màn hình chính" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Button text="Quản lý hồ sơ khách hàng" prefWidth="200"/>
+            <Button text="Quản lý vụ án" prefWidth="200"/>
+            <Button text="Quản lý hợp đồng" prefWidth="200"/>
+        </VBox>
+    </center>
+
+    <!-- Bottom footer -->
+    <bottom>
+        <Label text="© 2025 - LawFirm Desktop App" style="-fx-font-size: 11px; -fx-text-fill: gray;" 
+               BorderPane.alignment="CENTER"/>
+    </bottom>
+</BorderPane>
+
