@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.lawfirm.controller.ContractController">
+
+    <!-- Tiêu đề -->
+    <top>
+        <Label text="Quản Lý Hợp Đồng"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Nội dung -->
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Bảng hợp đồng -->
+            <TableView fx:id="contractTable" prefHeight="400" prefWidth="900">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colCode" text="Mã hợp đồng" prefWidth="120"/>
+                    <TableColumn fx:id="colContent" text="Nội dung" prefWidth="250"/>
+                    <TableColumn fx:id="colSignDate" text="Ngày ký" prefWidth="120"/>
+                    <TableColumn fx:id="colFee" text="Phí" prefWidth="100"/>
+                    <TableColumn fx:id="colCaseId" text="Case ID" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <!-- Nút thao tác -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Thêm hợp đồng" onAction="#handleAdd"/>
+                <Button text="Sửa hợp đồng" onAction="#handleEdit"/>
+                <Button text="Xóa hợp đồng" onAction="#handleDelete"/>
+                <Button text="Làm mới" onAction="#handleRefresh"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

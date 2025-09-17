@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.lawfirm.controller.CaseController">
+
+    <!-- Tiêu đề trên cùng -->
+    <top>
+        <Label text="Quản Lý Vụ Án"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Nội dung trung tâm -->
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Bảng dữ liệu -->
+            <TableView fx:id="caseTable" prefHeight="400" prefWidth="900">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colCode" text="Mã vụ án" prefWidth="120"/>
+                    <TableColumn fx:id="colCategory" text="Loại vụ án" prefWidth="150"/>
+                    <TableColumn fx:id="colRequestContent" text="Yêu cầu" prefWidth="200"/>
+                    <TableColumn fx:id="colResolvingAgency" text="Cơ quan giải quyết" prefWidth="150"/>
+                    <TableColumn fx:id="colFee" text="Phí" prefWidth="100"/>
+                    <TableColumn fx:id="colStart" text="Ngày bắt đầu" prefWidth="120"/>
+                    <TableColumn fx:id="colEnd" text="Ngày kết thúc" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+            <!-- Các nút thao tác -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Thêm vụ án" onAction="#handleAdd"/>
+                <Button text="Sửa vụ án" onAction="#handleEdit"/>
+                <Button text="Xóa vụ án" onAction="#handleDelete"/>
+                <Button text="Làm mới" onAction="#handleRefresh"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

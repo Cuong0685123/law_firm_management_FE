@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.lawfirm.controller.ClientController">
+
+    <top>
+        <Label text="Quản Lý Khách Hàng"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <TableView fx:id="clientTable" prefHeight="300" prefWidth="800">
+                <columns>
+                    <TableColumn fx:id="colId" text="Mã" prefWidth="50"/>
+                    <TableColumn fx:id="colFullName" text="Họ tên" prefWidth="150"/>
+                    <TableColumn fx:id="colBirthDate" text="Ngày sinh" prefWidth="100"/>
+                    <TableColumn fx:id="colIdNumber" text="CMND/CCCD" prefWidth="120"/>
+                    <TableColumn fx:id="colAddress" text="Địa chỉ" prefWidth="200"/>
+                    <TableColumn fx:id="colPhone" text="Điện thoại" prefWidth="120"/>
+                    <TableColumn fx:id="colEmail" text="Email" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Thêm khách hàng" onAction="#handleAdd"/>
+                <Button text="Sửa khách hàng" onAction="#handleEdit"/>
+                <Button text="Xóa khách hàng" onAction="#handleDelete"/>
+                <Button text="Làm mới" onAction="#handleRefresh"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

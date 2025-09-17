@@ -21,9 +21,9 @@
     <center>
         <VBox spacing="20" alignment="CENTER">
             <Label text="Màn hình chính" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-            <Button text="Quản lý hồ sơ khách hàng" prefWidth="200"/>
-            <Button text="Quản lý vụ án" prefWidth="200"/>
-            <Button text="Quản lý hợp đồng" prefWidth="200"/>
+            <Button text="Quản lý hồ sơ khách hàng" prefWidth="200" onAction="#openClientView"/>
+            <Button text="Quản lý vụ án" prefWidth="200" onAction="#openCaseView"/>
+            <Button text="Quản lý hợp đồng" prefWidth="200" onAction="#openContractView" />
         </VBox>
     </center>
 
