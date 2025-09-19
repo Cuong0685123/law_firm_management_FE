@@ -12,11 +12,11 @@ public class App extends Application {
     public void start(Stage stage) {
         try {
             // Load file FXML (ví dụ LoginView.fxml trong /view)
-            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/login/LoginView.fxml"));
 
             // Tạo Scene và gắn CSS
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+//            scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
             // Cấu hình stage
             stage.setTitle("LawFirm Frontend");

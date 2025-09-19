@@ -18,7 +18,7 @@ public class MainController {
     @FXML
     private void handleLogout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login/LoginView.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);

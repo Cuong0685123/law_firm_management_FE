@@ -29,7 +29,7 @@ private void handleLogin(ActionEvent event) {
 
         if (staff != null) {
             // Chuyển sang MainView.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/mainview/MainView.fxml"));
             Scene scene = new Scene(loader.load());
 
             // Gửi username sang MainController
