@@ -89,7 +89,7 @@ public class CaseController {
     @FXML
     private void handleBack() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/mainview/MainView.fxml"));
             Stage stage = (Stage) caseTable.getScene().getWindow();
             Scene scene = new Scene(root);
             // scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());

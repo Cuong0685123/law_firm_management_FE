@@ -89,7 +89,7 @@ public class ClientController {
     @FXML
     private void handleBack() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/mainview/MainView.fxml"));
             Stage stage = (Stage) clientTable.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
