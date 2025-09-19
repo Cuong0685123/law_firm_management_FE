@@ -5,6 +5,10 @@ import com.mycompany.lawfirm.service.ClientService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -80,6 +84,18 @@ public class ClientController {
     @FXML
     private void handleRefresh() {
         loadClients();
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            Stage stage = (Stage) clientTable.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            showAlert("Lỗi", "Không thể quay lại màn hình chính: " + e.getMessage());
+        }
     }
 
     private void showAlert(String title, String message) {

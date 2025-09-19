@@ -9,9 +9,16 @@
 
     <!-- Tiêu đề trên cùng -->
     <top>
-        <Label text="Quản Lý Vụ Án"
-               style="-fx-font-size: 20px; -fx-font-weight: bold;"
-               BorderPane.alignment="CENTER"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="← Quay lại" onAction="#handleBack" 
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 5 15;"/>
+            <Label text="Quản Lý Vụ Án"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;"
+                   HBox.hgrow="ALWAYS"/>
+        </HBox>
     </top>
 
     <!-- Nội dung trung tâm -->

@@ -5,6 +5,10 @@ import com.mycompany.lawfirm.service.ContractService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -79,6 +83,18 @@ public class ContractController {
     @FXML
     private void handleRefresh() {
         loadContracts();
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            Stage stage = (Stage) contractTable.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            showAlert("Lỗi", "Không thể quay lại màn hình chính: " + e.getMessage());
+        }
     }
 
     private void showAlert(String title, String message) {

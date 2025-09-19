@@ -5,6 +5,10 @@ import com.mycompany.lawfirm.service.CaseService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -80,6 +84,19 @@ public class CaseController {
     @FXML
     private void handleRefresh() {
         loadCases();
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+            Stage stage = (Stage) caseTable.getScene().getWindow();
+            Scene scene = new Scene(root);
+            // scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException e) {
+            showAlert("Lỗi", "Không thể quay lại màn hình chính: " + e.getMessage());
+        }
     }
 
     private void showAlert(String title, String message) {
