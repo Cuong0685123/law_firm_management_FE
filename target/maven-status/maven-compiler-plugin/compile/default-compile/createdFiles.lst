@@ -1,4 +1,5 @@
 com\mycompany\lawfirm\frontend\App.class
+com\mycompany\lawfirm\controller\ClientFormController.class
 com\mycompany\lawfirm\service\ContractService$1.class
 com\mycompany\lawfirm\service\AuthService.class
 com\mycompany\lawfirm\controller\ContractController.class

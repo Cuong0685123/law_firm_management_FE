@@ -50,10 +50,21 @@ public class ClientController {
         }
     }
 
-    @FXML
-    private void handleAdd() {
-        showAlert("Thêm", "Open Add Client dialog...");
+   @FXML
+private void handleAdd() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ClientFormView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Thêm khách hàng");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+        loadClients(); // Sau khi đóng form, load lại danh sách
+    } catch (IOException e) {
+        showAlert("Lỗi", "Không thể mở form khách hàng: " + e.getMessage());
     }
+}
+
 
     @FXML
     private void handleEdit() {
