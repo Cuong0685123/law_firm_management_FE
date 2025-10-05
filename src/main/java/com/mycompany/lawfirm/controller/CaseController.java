@@ -4,16 +4,18 @@ import com.mycompany.lawfirm.model.Case;
 import com.mycompany.lawfirm.service.CaseService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 public class CaseController {
 
@@ -29,78 +31,137 @@ public class CaseController {
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(data -> new javafx.beans.property.SimpleLongProperty(data.getValue().getId()).asObject());
-        colCode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCode()));
-        colCategory.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCategory()));
-        colStart.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getStartDate() != null ? data.getValue().getStartDate().format(DateTimeFormatter.ISO_DATE) : ""));
-        colEnd.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getEndDate() != null ? data.getValue().getEndDate().format(DateTimeFormatter.ISO_DATE) : ""));
-        colFee.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getFee()));
-
+        setupColumns();
         loadCases();
     }
 
+    private void setupColumns() {
+        colId.setCellValueFactory(data -> new javafx.beans.property.SimpleLongProperty(data.getValue().getId()).asObject());
+        colCode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCode()));
+        colCategory.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCategory()));
+
+        colStart.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getStartDate() != null ? data.getValue().getStartDate().format(DateTimeFormatter.ISO_DATE) : ""
+        ));
+        colEnd.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getEndDate() != null ? data.getValue().getEndDate().format(DateTimeFormatter.ISO_DATE) : ""
+        ));
+        colFee.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getFee()));
+    }
+
+    /** 🔄 Load danh sách vụ án */
     private void loadCases() {
         try {
             List<Case> cases = caseService.getAll();
             caseTable.setItems(FXCollections.observableArrayList(cases));
         } catch (IOException e) {
-            showAlert("Lỗi", "Không thể tải danh sách vụ án: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải danh sách vụ án:\n" + e.getMessage());
         }
     }
 
+    /** ➕ Thêm vụ án mới */
     @FXML
     private void handleAdd() {
-        showAlert("Thêm", "Mở dialog thêm vụ án...");
+        Case newCase = showCaseForm(null);
+        if (newCase != null) {
+            try {
+                caseService.create(newCase);
+                loadCases();
+                showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đã thêm vụ án mới!");
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể thêm vụ án:\n" + e.getMessage());
+            }
+        }
     }
 
+    /** ✏️ Chỉnh sửa vụ án */
     @FXML
     private void handleEdit() {
         Case selected = caseTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            showAlert("Chỉnh sửa", "Mở dialog chỉnh sửa vụ án: " + selected.getCode());
+            Case updatedCase = showCaseForm(selected);
+            if (updatedCase != null) {
+                try {
+                    caseService.update(selected.getId(), updatedCase);
+                    loadCases();
+                    showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đã cập nhật vụ án!");
+                } catch (IOException e) {
+                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể cập nhật vụ án:\n" + e.getMessage());
+                }
+            }
         } else {
-            showAlert("Cảnh báo", "Vui lòng chọn vụ án để chỉnh sửa.");
+            showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng chọn vụ án để chỉnh sửa.");
         }
     }
 
+    /** ❌ Xóa vụ án */
     @FXML
     private void handleDelete() {
         Case selected = caseTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            try {
-                caseService.delete(selected.getId());
-                loadCases();
-                showAlert("Thành công", "Đã xóa vụ án!");
-            } catch (IOException e) {
-                showAlert("Lỗi", "Không thể xóa vụ án: " + e.getMessage());
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Xác nhận");
+            confirm.setHeaderText("Xóa vụ án " + selected.getCode() + "?");
+            confirm.setContentText("Hành động này không thể hoàn tác.");
+            Optional<ButtonType> result = confirm.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                    caseService.delete(selected.getId());
+                    loadCases();
+                    showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đã xóa vụ án!");
+                } catch (IOException e) {
+                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể xóa vụ án:\n" + e.getMessage());
+                }
             }
         } else {
-            showAlert("Cảnh báo", "Vui lòng chọn vụ án để xóa.");
+            showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng chọn vụ án để xóa.");
         }
     }
 
+    /** 🔁 Làm mới */
     @FXML
     private void handleRefresh() {
         loadCases();
     }
 
+    /** ⬅️ Quay lại MainView */
     @FXML
     private void handleBack() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/mainview/MainView.fxml"));
             Stage stage = (Stage) caseTable.getScene().getWindow();
-            Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
         } catch (IOException e) {
-            showAlert("Lỗi", "Không thể quay lại màn hình chính: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại màn hình chính:\n" + e.getMessage());
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    /** ⚙️ Hiển thị form thêm/sửa vụ án */
+    private Case showCaseForm(Case selectedCase) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CaseFormView.fxml"));
+
+            Parent root = loader.load();
+
+            CaseFormController controller = loader.getController();
+            controller.setCaseData(selectedCase);
+
+            Stage stage = new Stage();
+            stage.setTitle(selectedCase == null ? "Thêm vụ án" : "Chỉnh sửa vụ án");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            return controller.getResult();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở form vụ án:\n" + e.getMessage());
+            return null;
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();

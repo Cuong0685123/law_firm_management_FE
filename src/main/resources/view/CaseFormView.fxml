@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.mycompany.lawfirm.controller.CaseFormController">
+      
+
+    <Label text="Thông tin vụ án" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Mã vụ án:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtCode" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Loại vụ án:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtCategory" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Phí:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtFee" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày bắt đầu:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dpStart" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày kết thúc:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dpEnd" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Nội dung yêu cầu:" GridPane.rowIndex="5" GridPane.columnIndex="0" alignment="TOP_LEFT"/>
+        <TextArea fx:id="txtRequestContent" prefRowCount="4" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="Lưu" onAction="#handleSave" style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
+        <Button text="Hủy" onAction="#handleCancel" style="-fx-background-color: #6c757d; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

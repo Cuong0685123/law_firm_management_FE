@@ -4,6 +4,7 @@ D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Case.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Contract.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ContractController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ClientController.java
+D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\CaseFormController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\MainController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\CaseService.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\RegisterController.java

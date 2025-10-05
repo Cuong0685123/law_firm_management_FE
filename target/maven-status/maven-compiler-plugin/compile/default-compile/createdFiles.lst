@@ -9,6 +9,7 @@ com\mycompany\lawfirm\service\ClientService$1.class
 com\mycompany\lawfirm\service\ClientService.class
 com\mycompany\lawfirm\controller\MainController.class
 com\mycompany\lawfirm\model\Case.class
+com\mycompany\lawfirm\controller\CaseFormController.class
 com\mycompany\lawfirm\model\Staff.class
 com\mycompany\lawfirm\controller\LoginController.class
 com\mycompany\lawfirm\service\CaseService$1.class
