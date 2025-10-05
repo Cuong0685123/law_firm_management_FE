@@ -16,7 +16,7 @@ public class RegisterController {
         try {
             boolean success = AuthService.register(
                     usernameField.getText(),
-                    emailField.getText(),
+                   
                     passwordField.getText()
             );
             if (success) {

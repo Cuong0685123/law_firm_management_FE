@@ -3,6 +3,7 @@ package com.mycompany.lawfirm.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.lawfirm.model.Staff;
+
 import java.net.http.*;
 import java.net.URI;
 
@@ -24,7 +25,6 @@ public class AuthService {
         String body = response.body();
 
         try {
-            // Thử parse JSON
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(body);
 
@@ -37,18 +37,17 @@ public class AuthService {
             return staff;
 
         } catch (Exception e) {
-            // Nếu không phải JSON, backend trả plain text
             throw new RuntimeException(body);
         }
     }
-    
-    // Đăng ký
-    public static boolean register(String username, String email, String password) throws Exception {
+
+    // Đăng ký (chỉ còn username + password, không còn email)
+    public static boolean register(String username, String password) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 
         String requestBody = String.format(
-                "{\"username\":\"%s\", \"email\":\"%s\", \"password\":\"%s\"}",
-                username, email, password
+                "{\"username\":\"%s\", \"password\":\"%s\"}",
+                username, password
         );
 
         HttpRequest request = HttpRequest.newBuilder()
