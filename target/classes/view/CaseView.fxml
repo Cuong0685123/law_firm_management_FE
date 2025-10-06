@@ -7,47 +7,46 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.mycompany.lawfirm.controller.CaseController">
 
-    <!-- Tiêu đề trên cùng -->
+    <!-- Header -->
     <top>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-            <Button text="← Quay lại" onAction="#handleBack" 
-                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 5 15;"/>
-            <Label text="Quản Lý Vụ Án"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;"
-                   HBox.hgrow="ALWAYS"/>
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Button text="← Quay lại" onAction="#handleBack"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white;"/>
+            <Label text="Quản lý vụ án"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
-    <!-- Nội dung trung tâm -->
+    <!-- Center -->
     <center>
         <VBox spacing="10" alignment="CENTER">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
-            <!-- Bảng dữ liệu -->
-            <TableView fx:id="caseTable" prefHeight="400" prefWidth="900">
+            <TableView fx:id="caseTable" prefHeight="520" prefWidth="1300">
                 <columns>
-                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                    <TableColumn fx:id="colCode" text="Mã vụ án" prefWidth="120"/>
-                    <TableColumn fx:id="colCategory" text="Loại vụ án" prefWidth="150"/>
-                    <TableColumn fx:id="colRequestContent" text="Yêu cầu" prefWidth="200"/>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colCode" text="Mã vụ án" prefWidth="100"/>
+                    <TableColumn fx:id="colCategory" text="Loại vụ án" prefWidth="120"/>
+                    <TableColumn fx:id="colRequestContent" text="Nội dung yêu cầu" prefWidth="160"/>
+                    <TableColumn fx:id="colLegalRelation" text="Quan hệ pháp lý" prefWidth="140"/>
+                    <TableColumn fx:id="colObjective" text="Mục tiêu" prefWidth="100"/>
+                    <TableColumn fx:id="colApplicableLaw" text="Luật áp dụng" prefWidth="130"/>
                     <TableColumn fx:id="colResolvingAgency" text="Cơ quan giải quyết" prefWidth="150"/>
-                    <TableColumn fx:id="colFee" text="Phí" prefWidth="100"/>
-                    <TableColumn fx:id="colStart" text="Ngày bắt đầu" prefWidth="120"/>
-                    <TableColumn fx:id="colEnd" text="Ngày kết thúc" prefWidth="120"/>
+                    <TableColumn fx:id="colProduct" text="Sản phẩm" prefWidth="100"/>
+                    <TableColumn fx:id="colResult" text="Kết quả" prefWidth="100"/>
+                    <TableColumn fx:id="colFee" text="Phí" prefWidth="90"/>
+                    <TableColumn fx:id="colStart" text="Ngày bắt đầu" prefWidth="110"/>
+                    <TableColumn fx:id="colEnd" text="Ngày kết thúc" prefWidth="110"/>
+                    <TableColumn fx:id="colClient" text="Khách hàng" prefWidth="150"/>
                 </columns>
             </TableView>
 
-            <!-- Các nút thao tác -->
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Thêm vụ án" onAction="#handleAdd"/>
-                <Button text="Sửa vụ án" onAction="#handleEdit"/>
-                <Button text="Xóa vụ án" onAction="#handleDelete"/>
-                <Button text="Làm mới" onAction="#handleRefresh"/>
+            <HBox spacing="12" alignment="CENTER">
+                <Button text="Thêm vụ án" onAction="#handleAdd" style="-fx-background-color:#28a745;-fx-text-fill:white;"/>
+                <Button text="Sửa vụ án" onAction="#handleEdit" style="-fx-background-color:#ffc107;-fx-text-fill:black;"/>
+                <Button text="Xóa vụ án" onAction="#handleDelete" style="-fx-background-color:#dc3545;-fx-text-fill:white;"/>
+                <Button text="Làm mới" onAction="#handleRefresh" style="-fx-background-color:#007bff;-fx-text-fill:white;"/>
             </HBox>
         </VBox>
     </center>

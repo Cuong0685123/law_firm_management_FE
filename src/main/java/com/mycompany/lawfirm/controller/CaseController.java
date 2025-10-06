@@ -23,9 +23,17 @@ public class CaseController {
     @FXML private TableColumn<Case, Long> colId;
     @FXML private TableColumn<Case, String> colCode;
     @FXML private TableColumn<Case, String> colCategory;
+    @FXML private TableColumn<Case, String> colRequestContent;
+    @FXML private TableColumn<Case, String> colLegalRelation;
+    @FXML private TableColumn<Case, String> colObjective;
+    @FXML private TableColumn<Case, String> colApplicableLaw;
+    @FXML private TableColumn<Case, String> colResolvingAgency;
+    @FXML private TableColumn<Case, String> colProduct;
+    @FXML private TableColumn<Case, String> colResult;
+    @FXML private TableColumn<Case, BigDecimal> colFee;
     @FXML private TableColumn<Case, String> colStart;
     @FXML private TableColumn<Case, String> colEnd;
-    @FXML private TableColumn<Case, BigDecimal> colFee;
+    @FXML private TableColumn<Case, String> colClient;
 
     private final CaseService caseService = new CaseService();
 
@@ -35,18 +43,28 @@ public class CaseController {
         loadCases();
     }
 
+    /** Thiết lập mapping các cột với model */
     private void setupColumns() {
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleLongProperty(data.getValue().getId()).asObject());
         colCode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCode()));
         colCategory.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCategory()));
-
+        colRequestContent.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRequestContent()));
+        colLegalRelation.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getLegalRelation()));
+        colObjective.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getObjective()));
+        colApplicableLaw.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getApplicableLaw()));
+        colResolvingAgency.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getResolvingAgency()));
+        colProduct.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getProduct()));
+        colResult.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getResult()));
+        colFee.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getFee()));
         colStart.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().getStartDate() != null ? data.getValue().getStartDate().format(DateTimeFormatter.ISO_DATE) : ""
         ));
         colEnd.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().getEndDate() != null ? data.getValue().getEndDate().format(DateTimeFormatter.ISO_DATE) : ""
         ));
-        colFee.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getFee()));
+        colClient.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getClient() != null ? data.getValue().getClient().getFullName() : ""
+        ));
     }
 
     /** 🔄 Load danh sách vụ án */
@@ -141,7 +159,6 @@ public class CaseController {
     private Case showCaseForm(Case selectedCase) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CaseFormView.fxml"));
-
             Parent root = loader.load();
 
             CaseFormController controller = loader.getController();

@@ -3,34 +3,65 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.mycompany.lawfirm.controller.CaseFormController">
-      
 
-    <Label text="Thông tin vụ án" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.lawfirm.controller.CaseFormController"
+            prefWidth="600" prefHeight="700">
 
-    <GridPane hgap="10" vgap="10">
-        <Label text="Mã vụ án:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtCode" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <VBox spacing="12" layoutX="20" layoutY="20" alignment="TOP_CENTER">
+        <Label text="Thông tin vụ án" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-        <Label text="Loại vụ án:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtCategory" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <GridPane hgap="10" vgap="8" alignment="CENTER_LEFT">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
 
-        <Label text="Phí:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtFee" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Khách hàng:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbClient" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="-- Chọn khách hàng --"/>
 
-        <Label text="Ngày bắt đầu:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="dpStart" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Mã vụ án:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCode" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Ngày kết thúc:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="dpEnd" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="Loại vụ án:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCategory" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Nội dung yêu cầu:" GridPane.rowIndex="5" GridPane.columnIndex="0" alignment="TOP_LEFT"/>
-        <TextArea fx:id="txtRequestContent" prefRowCount="4" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-    </GridPane>
+            <Label text="Nội dung yêu cầu:" GridPane.rowIndex="3" GridPane.columnIndex="0" alignment="TOP_LEFT"/>
+            <TextArea fx:id="txtRequestContent" prefRowCount="2" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-    <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Lưu" onAction="#handleSave" style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
-        <Button text="Hủy" onAction="#handleCancel" style="-fx-background-color: #6c757d; -fx-text-fill: white;"/>
-    </HBox>
-</VBox>
+            <Label text="Quan hệ pháp luật:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtLegalRelation" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Mục tiêu:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtObjective" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Label text="Luật áp dụng:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtApplicableLaw" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="Cơ quan giải quyết:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtResolvingAgency" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Sản phẩm/dịch vụ:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtProduct" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+            <Label text="Kết quả:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtResult" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+            <Label text="Phí:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtFee" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+
+            <Label text="Ngày bắt đầu:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpStart" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+            <Label text="Ngày kết thúc:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpEnd" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="💾 Lưu" onAction="#handleSave" 
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5 20;"/>
+            <Button text="❌ Hủy" onAction="#handleCancel"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 5 20;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

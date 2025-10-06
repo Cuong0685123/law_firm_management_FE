@@ -2,7 +2,6 @@ package com.mycompany.lawfirm.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 
 public class Case {
     private Long id;
@@ -15,24 +14,22 @@ public class Case {
     private String applicableLaw;       // Luật áp dụng
 
     private String resolvingAgency;     // Cơ quan giải quyết
-
     private String product;             // Sản phẩm/dịch vụ
     private String result;              // Kết quả
-
     private BigDecimal fee;             // Phí
 
     private LocalDate startDate;
     private LocalDate endDate;
 
-    // Nếu muốn, có thể thêm mapping client/staff/contract/reports (sau này FE cần)
-    private Client client;
-    // private Set<Staff> assignedStaff;
-    // private Contract contract;
-    // private Set<Report> reports;
+    private Client client;              // Khách hàng (liên kết vụ án)
+private Long clientId;
 
-    // Getters & Setters
+    // --- Getters & Setters ---
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+    
+    public Long getClientId(){return clientId; }
+    public void setClientId (Long clientId){this.clientId = clientId;}
 
     public String getCode() { return code; }
     public void setCode(String code) { this.code = code; }
@@ -69,4 +66,8 @@ public class Case {
 
     public LocalDate getEndDate() { return endDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
 }
+

@@ -1,17 +1,22 @@
 package com.mycompany.lawfirm.controller;
 
 import com.mycompany.lawfirm.model.Case;
+import com.mycompany.lawfirm.model.Client;
 import com.mycompany.lawfirm.service.CaseService;
+import com.mycompany.lawfirm.service.ClientService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
 
 public class CaseFormController {
 
+    @FXML private ComboBox<Client> cbClient;
+    
     @FXML private TextField txtCode;
     @FXML private TextField txtCategory;
     @FXML private TextField txtFee;
@@ -20,13 +25,43 @@ public class CaseFormController {
     @FXML private TextArea txtRequestContent;
 
     private final CaseService caseService = new CaseService();
-    private Case editingCase;
-    private Case resultCase; // ✅ để trả về cho CaseController
+    private final ClientService clientService = new ClientService();
 
-    /** Nhận dữ liệu vụ án từ CaseController (nếu là chỉnh sửa) */
+    private Case editingCase;
+    private Case resultCase;
+
+    @FXML
+    public void initialize() {
+        loadClients();
+    }
+
+    /** 🧭 Load danh sách khách hàng vào combobox */
+    private void loadClients() {
+        try {
+            List<Client> clients = clientService.getAll();
+            cbClient.setItems(FXCollections.observableArrayList(clients));
+            cbClient.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(Client c, boolean empty) {
+                    super.updateItem(c, empty);
+                    setText(empty || c == null ? "" : c.getFullName());
+                }
+            });
+            cbClient.setButtonCell(new ListCell<>() {
+                @Override
+                protected void updateItem(Client c, boolean empty) {
+                    super.updateItem(c, empty);
+                    setText(empty || c == null ? "" : c.getFullName());
+                }
+            });
+        } catch (IOException e) {
+            showAlert("Lỗi", "Không thể tải danh sách khách hàng:\n" + e.getMessage());
+        }
+    }
+
+    /** Gán dữ liệu vụ án vào form (khi sửa) */
     public void setCaseData(Case caseData) {
         this.editingCase = caseData;
-
         if (caseData != null) {
             txtCode.setText(caseData.getCode());
             txtCategory.setText(caseData.getCategory());
@@ -34,20 +69,24 @@ public class CaseFormController {
             dpStart.setValue(caseData.getStartDate());
             dpEnd.setValue(caseData.getEndDate());
             txtRequestContent.setText(caseData.getRequestContent());
+            cbClient.setValue(caseData.getClient());
         }
     }
 
-    /** ✅ Trả kết quả vụ án (sau khi lưu) */
-    public Case getResult() {
-        return resultCase;
-    }
-
-    /** 💾 Lưu dữ liệu */
+    /** Lưu vụ án */
     @FXML
     private void handleSave() {
         try {
+            if (cbClient.getValue() == null) {
+                showAlert("Lỗi", "Vui lòng chọn khách hàng!");
+                return;
+            }
+
             Case caseData = (editingCase != null) ? editingCase : new Case();
 
+            caseData.setClientId(cbClient.getValue().getId());
+
+            
             caseData.setCode(txtCode.getText());
             caseData.setCategory(txtCategory.getText());
             caseData.setFee(new BigDecimal(txtFee.getText()));
@@ -57,6 +96,8 @@ public class CaseFormController {
 
             if (editingCase == null) {
                 resultCase = caseService.create(caseData);
+         
+
                 showAlert("Thành công", "Đã thêm vụ án mới!");
             } else {
                 resultCase = caseService.update(caseData.getId(), caseData);
@@ -72,11 +113,14 @@ public class CaseFormController {
         }
     }
 
-    /** ❌ Hủy và đóng form */
     @FXML
     private void handleCancel() {
         resultCase = null;
         closeForm();
+    }
+
+    public Case getResult() {
+        return resultCase;
     }
 
     private void closeForm() {
