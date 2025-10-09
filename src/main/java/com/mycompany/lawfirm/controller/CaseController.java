@@ -1,7 +1,9 @@
 package com.mycompany.lawfirm.controller;
 
 import com.mycompany.lawfirm.model.Case;
+import com.mycompany.lawfirm.model.Client;
 import com.mycompany.lawfirm.service.CaseService;
+import com.mycompany.lawfirm.service.ClientService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,30 +69,44 @@ public class CaseController {
         ));
     }
 
-    /** 🔄 Load danh sách vụ án */
     private void loadCases() {
-        try {
-            List<Case> cases = caseService.getAll();
-            caseTable.setItems(FXCollections.observableArrayList(cases));
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải danh sách vụ án:\n" + e.getMessage());
-        }
-    }
+    try {
+        List<Case> cases = caseService.getAll();
 
-    /** ➕ Thêm vụ án mới */
-    @FXML
-    private void handleAdd() {
-        Case newCase = showCaseForm(null);
-        if (newCase != null) {
-            try {
-                caseService.create(newCase);
-                loadCases();
-                showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đã thêm vụ án mới!");
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể thêm vụ án:\n" + e.getMessage());
+        // Map clientId -> Client object
+        List<Client> clients = new ClientService().getAll();
+        for (Case c : cases) {
+            if (c.getClient() == null && c.getClientId() != null) {
+                Client matched = clients.stream()
+                    .filter(cl -> cl.getId().equals(c.getClientId()))
+                    .findFirst()
+                    .orElse(null);
+                c.setClient(matched);
             }
         }
+
+        caseTable.setItems(FXCollections.observableArrayList(cases));
+    } catch (IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải danh sách vụ án:\n" + e.getMessage());
     }
+}
+
+
+    /** ➕ Thêm vụ án mới */
+   @FXML
+private void handleAdd() {
+    Case newCase = showCaseForm(null);
+    if (newCase != null) {
+        try {
+            caseService.create(newCase); // chỉ gọi 1 lần ở đây
+            loadCases();
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đã thêm vụ án mới!");
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể thêm vụ án:\n" + e.getMessage());
+        }
+    }
+}
+
 
     /** ✏️ Chỉnh sửa vụ án */
     @FXML

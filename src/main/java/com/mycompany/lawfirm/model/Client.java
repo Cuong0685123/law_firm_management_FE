@@ -32,4 +32,23 @@ public class Client {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    
+    @Override
+public String toString() {
+    return fullName != null ? fullName : "(Không có tên)";
+}
+
+@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Client)) return false;
+    Client other = (Client) o;
+    return id != null && id.equals(other.id);
+}
+
+@Override
+public int hashCode() {
+    return id != null ? id.hashCode() : 0;
+}
+
 }

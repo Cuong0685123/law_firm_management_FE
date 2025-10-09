@@ -16,13 +16,18 @@ import java.util.List;
 public class CaseFormController {
 
     @FXML private ComboBox<Client> cbClient;
-    
     @FXML private TextField txtCode;
     @FXML private TextField txtCategory;
+    @FXML private TextArea txtRequestContent;
+    @FXML private TextField txtLegalRelation;
+    @FXML private TextField txtObjective;
+    @FXML private TextField txtApplicableLaw;
+    @FXML private TextField txtResolvingAgency;
+    @FXML private TextField txtProduct;
+    @FXML private TextField txtResult;
     @FXML private TextField txtFee;
     @FXML private DatePicker dpStart;
     @FXML private DatePicker dpEnd;
-    @FXML private TextArea txtRequestContent;
 
     private final CaseService caseService = new CaseService();
     private final ClientService clientService = new ClientService();
@@ -60,20 +65,43 @@ public class CaseFormController {
     }
 
     /** Gán dữ liệu vụ án vào form (khi sửa) */
-    public void setCaseData(Case caseData) {
-        this.editingCase = caseData;
-        if (caseData != null) {
-            txtCode.setText(caseData.getCode());
-            txtCategory.setText(caseData.getCategory());
-            txtFee.setText(caseData.getFee() != null ? caseData.getFee().toString() : "");
-            dpStart.setValue(caseData.getStartDate());
-            dpEnd.setValue(caseData.getEndDate());
-            txtRequestContent.setText(caseData.getRequestContent());
-            cbClient.setValue(caseData.getClient());
-        }
-    }
+ public void setCaseData(Case caseData) {
+    this.editingCase = caseData;
+    if (caseData != null) {
+        txtCode.setText(caseData.getCode());
+        txtCategory.setText(caseData.getCategory());
+        txtRequestContent.setText(caseData.getRequestContent());
+        txtLegalRelation.setText(caseData.getLegalRelation());
+        txtObjective.setText(caseData.getObjective());
+        txtApplicableLaw.setText(caseData.getApplicableLaw());
+        txtResolvingAgency.setText(caseData.getResolvingAgency());
+        txtProduct.setText(caseData.getProduct());
+        txtResult.setText(caseData.getResult());
+        txtFee.setText(caseData.getFee() != null ? caseData.getFee().toString() : "");
+        dpStart.setValue(caseData.getStartDate());
+        dpEnd.setValue(caseData.getEndDate());
 
-    /** Lưu vụ án */
+        // ✅ Trì hoãn việc setValue đến sau khi ComboBox load xong
+        javafx.application.Platform.runLater(() -> {
+            if (caseData.getClient() != null) {
+                cbClient.setValue(caseData.getClient());
+            } else if (caseData.getClientId() != null) {
+                Client matched = cbClient.getItems()
+                        .stream()
+                        .filter(c -> c.getId().equals(caseData.getClientId()))
+                        .findFirst()
+                        .orElse(null);
+                cbClient.setValue(matched);
+               
+
+            }
+        });
+    }
+}
+
+
+
+    /** ✅ Lưu dữ liệu */
     @FXML
     private void handleSave() {
         try {
@@ -85,31 +113,31 @@ public class CaseFormController {
             Case caseData = (editingCase != null) ? editingCase : new Case();
 
             caseData.setClientId(cbClient.getValue().getId());
-
-            
             caseData.setCode(txtCode.getText());
             caseData.setCategory(txtCategory.getText());
+            caseData.setRequestContent(txtRequestContent.getText());
+            caseData.setLegalRelation(txtLegalRelation.getText());
+            caseData.setObjective(txtObjective.getText());
+            caseData.setApplicableLaw(txtApplicableLaw.getText());
+            caseData.setResolvingAgency(txtResolvingAgency.getText());
+            caseData.setProduct(txtProduct.getText());
+            caseData.setResult(txtResult.getText());
             caseData.setFee(new BigDecimal(txtFee.getText()));
             caseData.setStartDate(dpStart.getValue());
             caseData.setEndDate(dpEnd.getValue());
-            caseData.setRequestContent(txtRequestContent.getText());
+            caseData.setClient(cbClient.getValue());
+caseData.setClientId(cbClient.getValue().getId());
 
-            if (editingCase == null) {
-                resultCase = caseService.create(caseData);
-         
 
-                showAlert("Thành công", "Đã thêm vụ án mới!");
-            } else {
-                resultCase = caseService.update(caseData.getId(), caseData);
-                showAlert("Thành công", "Đã cập nhật vụ án!");
-            }
-
+            // Gọi service để lưu (nếu bạn muốn lưu ngay)
+            
+            resultCase = caseData;
             closeForm();
 
         } catch (NumberFormatException e) {
             showAlert("Lỗi", "Phí phải là số hợp lệ!");
-        } catch (IOException e) {
-            showAlert("Lỗi", "Không thể lưu vụ án:\n" + e.getMessage());
+        } catch (Exception e) {
+            showAlert("Lỗi", "Không thể lưu dữ liệu:\n" + e.getMessage());
         }
     }
 
