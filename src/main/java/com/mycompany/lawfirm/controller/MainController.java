@@ -31,7 +31,7 @@ public class MainController {
     @FXML
     private void openCaseView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CaseView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/caseform/CaseView.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);
@@ -42,7 +42,7 @@ public class MainController {
     @FXML
     private void openClientView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ClientView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/client/ClientView.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);
@@ -53,7 +53,7 @@ public class MainController {
     @FXML
     private void openContractView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ContractView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/contract/ContractView.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);

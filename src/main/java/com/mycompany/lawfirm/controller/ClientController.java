@@ -53,7 +53,7 @@ public class ClientController {
    @FXML
 private void handleAdd() {
     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ClientFormView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/client/ClientFormView.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setTitle("Thêm khách hàng");

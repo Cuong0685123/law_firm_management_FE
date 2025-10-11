@@ -174,7 +174,7 @@ private void handleAdd() {
     /** ⚙️ Hiển thị form thêm/sửa vụ án */
     private Case showCaseForm(Case selectedCase) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CaseFormView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/caseform/CaseFormView.fxml"));
             Parent root = loader.load();
 
             CaseFormController controller = loader.getController();

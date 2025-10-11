@@ -50,19 +50,60 @@ public class ContractController {
     }
 
     @FXML
-    private void handleAdd() {
-        showAlert("Thêm", "Mở dialog thêm hợp đồng...");
+private void handleAdd() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/contract/ContractForm.fxml"));
+        Parent root = loader.load();
+
+        ContractFormController formController = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setTitle("Thêm Hợp Đồng");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
+        Contract result = formController.getResultContract();
+        if (result != null) {
+            contractService.create(result);
+            loadContracts();
+        }
+
+    } catch (IOException e) {
+        showAlert("Lỗi", "Không thể mở form: " + e.getMessage());
+    }
+}
+
+@FXML
+private void handleEdit() {
+    Contract selected = contractTable.getSelectionModel().getSelectedItem();
+    if (selected == null) {
+        showAlert("Cảnh báo", "Vui lòng chọn hợp đồng để chỉnh sửa.");
+        return;
     }
 
-    @FXML
-    private void handleEdit() {
-        Contract selected = contractTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showAlert("Chỉnh sửa", "Mở dialog chỉnh sửa hợp đồng: " + selected.getCode());
-        } else {
-            showAlert("Cảnh báo", "Vui lòng chọn hợp đồng để chỉnh sửa.");
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/contract/ContractForm.fxml"));
+        Parent root = loader.load();
+
+        ContractFormController formController = loader.getController();
+        formController.setContractData(selected);
+
+        Stage stage = new Stage();
+        stage.setTitle("Chỉnh Sửa Hợp Đồng");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
+        Contract result = formController.getResultContract();
+        if (result != null) {
+            contractService.update(selected.getId(), result);
+            loadContracts();
         }
+
+    } catch (IOException e) {
+        showAlert("Lỗi", "Không thể mở form chỉnh sửa: " + e.getMessage());
     }
+}
+
 
     @FXML
     private void handleDelete() {
