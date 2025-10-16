@@ -47,6 +47,8 @@
                 <Button text="Sửa vụ án" onAction="#handleEdit" style="-fx-background-color:#ffc107;-fx-text-fill:black;"/>
                 <Button text="Xóa vụ án" onAction="#handleDelete" style="-fx-background-color:#dc3545;-fx-text-fill:white;"/>
                 <Button text="Làm mới" onAction="#handleRefresh" style="-fx-background-color:#007bff;-fx-text-fill:white;"/>
+                <Button text="📎 Tài liệu" onAction="#handleManageFiles" />
+
             </HBox>
         </VBox>
     </center>

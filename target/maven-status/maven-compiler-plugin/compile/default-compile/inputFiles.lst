@@ -2,6 +2,7 @@ D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\AuthServic
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\CaseController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ClientFormController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Case.java
+D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\CaseFile.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Contract.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ContractController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ClientController.java
@@ -10,7 +11,9 @@ D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\MainCon
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\CaseService.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\RegisterController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Client.java
+D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\CaseFileController.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\controller\ContractFormController.java
+D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\CaseFileService.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\ContractService.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\model\Staff.java
 D:\UDLAW\lawfirm-frontend\src\main\java\com\mycompany\lawfirm\service\ClientService.java

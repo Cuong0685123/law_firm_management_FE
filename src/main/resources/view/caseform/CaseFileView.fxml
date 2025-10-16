@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.lawfirm.controller.CaseFileController"
+            prefWidth="600" prefHeight="400">
+    <children>
+        <Label text="Quản lý tài liệu vụ án" layoutX="20" layoutY="20" />
+
+        <Button text="Tải lên" layoutX="20" layoutY="60" onAction="#handleUpload" />
+        <Button text="Tải xuống" layoutX="120" layoutY="60" onAction="#handleDownload" />
+        <Button text="Xóa" layoutX="220" layoutY="60" onAction="#handleDelete" />
+        <Button text="Làm mới" layoutX="320" layoutY="60" onAction="#handleRefresh" />
+
+        <TableView fx:id="fileTable" layoutX="20" layoutY="100" prefWidth="550" prefHeight="250">
+            <columns>
+                <TableColumn fx:id="colName" text="Tên file" prefWidth="200"/>
+                <TableColumn fx:id="colType" text="Loại" prefWidth="150"/>
+                <TableColumn fx:id="colDate" text="Ngày tải lên" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

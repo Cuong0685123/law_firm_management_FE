@@ -1,5 +1,6 @@
 package com.mycompany.lawfirm.controller;
 
+import com.mycompany.lawfirm.controller.CaseFileController;
 import com.mycompany.lawfirm.model.Case;
 import com.mycompany.lawfirm.model.Client;
 import com.mycompany.lawfirm.service.CaseService;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -199,4 +201,31 @@ private void handleAdd() {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+private void handleManageFiles() {
+    Case selected = caseTable.getSelectionModel().getSelectedItem();
+    if (selected == null) {
+        showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng chọn vụ án để quản lý tài liệu.");
+        return;
+    }
+
+    try {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/caseform/CaseFileView.fxml"));
+
+
+        Parent root = loader.load();
+
+        CaseFileController controller = loader.getController();
+        controller.setCaseId(selected.getId());
+
+        Stage stage = new Stage();
+        stage.setTitle("Quản lý tài liệu vụ án: " + selected.getCode());
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    } catch (IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở quản lý tài liệu:\n" + e.getMessage());
+    }
+}
+
 }
